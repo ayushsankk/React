@@ -3,23 +3,6 @@ import { Link }  from 'react-router-dom';
 import './App.css';
 
 class ListBooks extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            wantToRead: props.books.filter((book) => 
-            (book.shelf === 'wantToRead')),
-          currentlyReading: props.books.filter((book) => 
-            (book.shelf === 'currentlyReading')),
-          read: props.books.filter((book) => 
-            (book.shelf === 'read'))
-        }
-    }
-    state = {
-        wantToRead  : [],
-        currentlyReading : [],
-        read: []
-    }
     render() {
 
         const { books } = this.props
@@ -48,7 +31,7 @@ class ListBooks extends Component {
                           <li key={book.id}>
                             <div className="book">
                             <div className="book-top">
-                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.previewLink})` }}></div>
+                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                 <div className="book-shelf-changer">
                                 <select>
                                     <option value="move" disabled>Move to...</option>
@@ -77,7 +60,7 @@ class ListBooks extends Component {
                           <li key={book.id}>
                             <div className="book">
                             <div className="book-top">
-                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.previewLink})` }}></div>
+                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                 <div className="book-shelf-changer">
                                 <select>
                                     <option value="move" disabled>Move to...</option>
@@ -106,7 +89,7 @@ class ListBooks extends Component {
                           <li key={book.id}>
                             <div className="book">
                             <div className="book-top">
-                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.previewLink})` }}></div>
+                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                 <div className="book-shelf-changer">
                                 <select>
                                     <option value="move" disabled>Move to...</option>
