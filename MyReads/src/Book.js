@@ -6,13 +6,18 @@ import ShelfChanger from './ShelfChanger';
 const Book = props => {
     const { book, books, changeShelf } = props;
 
+    const coverImg =
+    book.imageLinks && book.imageLinks.thumbnail
+      ? book.imageLinks.thumbnail
+      : 'noCover';
+
     return (
     <li>
       <div className="book">
         <div className="book-top">
           <div
             className="book-cover"
-            style={{ backgroundImage: `url(${book.imageLinks.thumbnail})` }}
+            style={{ backgroundImage: `url(${coverImg})` }}
           />
           <ShelfChanger book={book} books={books} changeShelf={changeShelf} />
         </div>
