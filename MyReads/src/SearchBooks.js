@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book';
 import * as BooksAPI from './BooksAPI';
+import './App.css';
 
 class SearchBooks extends Component {
   state = {
     query: '',
-    newBooks: [],
-    searchErr: false
+    newBooks: []
   };
 
   getBooks = event => {
@@ -17,16 +17,15 @@ class SearchBooks extends Component {
     if (query) {
       BooksAPI.search(query.trim(), 20).then(books => {
         books.length > 0
-          ? this.setState({ newBooks: books, searchErr: false })
-          : this.setState({ newBooks: [], searchErr: true });
+          ? this.setState({ newBooks: books})
+          : this.setState({ newBooks: []});
       });
 
-      // if query is empty => reset state to default
-    } else this.setState({ newBooks: [], searchErr: false });
+    } else this.setState({ newBooks: []});
   };
 
   render() {
-    const { query, newBooks, searchErr } = this.state;
+    const { query, newBooks } = this.state;
     const { books, changeShelf } = this.props;
 
     return (
@@ -59,9 +58,6 @@ class SearchBooks extends Component {
                 ))}
               </ol>
             </div>
-          )}
-          {searchErr && (
-            <h3>Search did not return any books. Please try again!</h3>
           )}
         </div>
       </div>
