@@ -51,15 +51,24 @@ class SearchBooks extends Component {
                 (
                   <div>
                     <ol className="books-grid">
-                    {resultBooks.map(book => (
-                  <Book
+                    {
+                    resultBooks.map(book => {
+                  let currentShelf = 'none'
+                  for(let item of books) {
+                    if (item.id === book.id) {
+                      currentShelf = item.shelf
+                      break
+                    }
+                  }
+                  
+                  return (<Book
                     key={book.id}
                     book={book}
                     books={books}
                     updateBook={updateBook}
-                    currentShelf = 'none'
+                    currentShelf = {currentShelf}
                   />
-                ))}
+                )})}
                   </ol>
                   </div>
                 ) 
