@@ -1,9 +1,33 @@
 import React, { Component } from 'react'
 import { Link }   from 'react-router-dom'
 import './App.css';
+import * as BooksAPI from './BooksAPI'
+import Book from './Book'
 
 class SearchBooks extends Component {
+  state = {
+    keyWord: '',
+    resultBooks: []
+  };
+
+  searchBooks = event => {
+    const keyWord = event.target.value;
+    this.setState({ keyWord });
+
+    if (keyWord) {
+      BooksAPI.search(keyWord).then(books => {
+        console.log(books);
+        books.length > 0
+          ? this.setState({ resultBooks: books})
+          : this.setState({ resultBooks: []});
+      });
+
+    } else this.setState({ resultBooks: []});
+  };
+
     render() {
+      const { books, updateBook } = this.props;
+      const { keyWord, resultBooks } = this.state;
         return (
             <div className="search-books">
             <div className="search-books-bar">
@@ -17,11 +41,29 @@ class SearchBooks extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text" placeholder="Search by title or author" value={keyWord} onChange={this.searchBooks}/>
 
               </div>
             </div>
             <div className="search-books-results">
+              {
+                resultBooks.length > 0 &&
+                (
+                  <div>
+                    <ol className="books-grid">
+                    {resultBooks.map(book => (
+                  <Book
+                    key={book.id}
+                    book={book}
+                    books={books}
+                    updateBook={updateBook}
+                    currentShelf = 'none'
+                  />
+                ))}
+                  </ol>
+                  </div>
+                ) 
+              } 
               <ol className="books-grid"></ol>
             </div>
           </div>
